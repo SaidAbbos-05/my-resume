@@ -64,7 +64,7 @@ const BackendDevResume = () => {
             <div className=" bg-gray-800 p-4 rounded-lg border border-cyan-900">
               <p className="text-cyan-400 text-xl font-semibold">Phone</p>
               <div className='flex-row pl-1'>
-                <p className="text-gray-300">(+998) 90 123 45 67</p>
+                <p className="text-gray-300">(+998) 99 635 96 19</p>
                 <p className="text-gray-300">(+998) 99 635 96 29</p>
               </div>
             </div>
@@ -221,7 +221,7 @@ const BackendDevResume = () => {
     },
     job: {
       icon: Briefcase,
-      title: 'Previous Experience',
+      title: 'Experience',
       content: (
         <div className="space-y-6">
           {[
@@ -318,7 +318,7 @@ const BackendDevResume = () => {
     { id: 'about', icon: User, label: 'About' },
     { id: 'interests', icon: Heart, label: 'Interests' },
     { id: 'skills', icon: Code, label: 'Skills' },
-    { id: 'job', icon: Briefcase, label: 'Previous Job' },
+    { id: 'job', icon: Briefcase, label: 'Experience' },
     { id: 'education', icon: GraduationCap, label: 'Education' },
     { id: 'certifications', icon: Award, label: 'Certifications' }
   ];
@@ -390,54 +390,87 @@ const BackendDevResume = () => {
         </div>
       </main>
 
-      <div
-        className='group fixed hover:scale bottom-12 right-15  z-50'
-        onClick={() => window.open(resume, '_blank')}
-      >
+
+      {/* Floating Action Buttons - Bottom Right */}
+      <div className='fixed bottom-15 right-15 z-50'>
+        {/* 1. GitHub Tugmachasi */}
         <div
-          onClick={window.open('https://github.com/SaidAbbos-05', '_blank')}
-          className='bg-linear-to-tl mb-2 from-black-900 to-blue-500 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
+          className='group bg-linear-to-tl mb-2 from-black-900 to-blue-500 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
+          onClick={() => window.open('https://github.com/SaidAbbos-05', '_blank')}
         >
-          <Github className='w-5 h-5 ' />
-          <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <Github className='w-6 h-6 ' />
+          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
             <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-              See Github
+               Github
             </div>
           </div>
         </div>
 
+        {/* 2. Gitlab Tugmachasi */}
         <div
-          className='bg-linear-to-tl mb-2 from-red-900 to-red-50 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
+          className='group bg-linear-to-tl mb-2 from-red-900 to-red-50 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
           onClick={() => window.open('https://gitlabdev.sud.uz/saidabbosxon', '_blank')}
         >
-          <Gitlab className='w-5 h-5 ' />
-          <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <Gitlab className='w-6 h-6 ' />
+          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
             <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-              See Gitlab
+               Gitlab
             </div>
           </div>
         </div>
 
+        {/* 3. LinkedIn Tugmachasi */}
         <div
           onClick={() => window.open('https://www.linkedin.com/in/%D1%81%D0%B0%D0%B8%D0%B4%D0%B0%D0%B1%D0%B1%D0%BE%D1%81-undefined-067a5528b/', '_blank')}
-          className='bg-linear-to-tl mb-2 bg-blue-400 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
+          className='group bg-linear-to-tl mb-2 bg-blue-400 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
         >
-          <LinkedinIcon className='w-5 h-5' />
-          <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <LinkedinIcon className='w-6 h-6' />
+          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
             <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-              See Linkedln
+              Linkedln
             </div>
           </div>
         </div>
 
-        <div className='bg-linear-to-tl from-cyan-900 to-blue-500 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'>
-          <Eye className='w-5 h-5 ' />
-          <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+        {/* 4. Resume/SV Tugmachasi */}
+        <div
+          onClick={() => window.open(resume, '_blank')} // Aslida bu onclick tashqi divda edi, endi bitta tugmachaga o'tkazildi
+          className='group bg-linear-to-tl mb-2 from-cyan-900 to-blue-500 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
+        >
+          <Eye className='w-6 h-6 ' />
+          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
             <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
               See SV
             </div>
           </div>
         </div>
+
+        {/* 5. Telegram Tugmachasi */}
+        <div
+          onClick={() => window.open("https://t.me/Saidabbos_Alisherov", '_blank')} // Aslida bu onclick tashqi divda edi, endi bitta tugmachaga o'tkazildi
+          className='group mb-2  rounded-full shadow-lg cursor-pointer flex items-center justify-center'
+        >
+          <img className='w-13 h-13' src="https://cdn-icons-png.flaticon.com/128/5968/5968804.png" alt="telegram" />
+          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
+              Telegram
+            </div>
+          </div>
+        </div>
+
+        {/* 5. Telegram Tugmachasi */}
+        <div
+          onClick={() => window.open("https://www.instagram.com/said_abbos_/", '_blank')} // Aslida bu onclick tashqi divda edi, endi bitta tugmachaga o'tkazildi
+          className='group   rounded-full shadow-lg cursor-pointer flex items-center justify-center'
+        >
+          <img className='w-13.5 h-13.5' src="https://cdn-icons-png.flaticon.com/128/3955/3955024.png" alt="telegram" />
+          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
+              Instagram
+            </div>
+          </div>
+        </div>
+
 
       </div>
 
@@ -522,6 +555,62 @@ const BackendDevResume = () => {
         </div>
       )
       }
+
+      {showMapModal && (
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="bg-gray-900 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl">
+            {/* Modal Sarlavhasi */}
+            <div className="bg-linear-to-r from-cyan-950 via-cyan-700 to-blue-200 p-6 flex justify-between items-center">
+              <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                <MapPin className="w-7 h-7" />
+                Toshkent vil, Zangiota tum, Obod turmush MFY, T.Islomov ko'chasi 4-uy
+              </h3>
+              {/* Yopish Tugmachasi */}
+              <button
+                onClick={() => setShowMapModal(false)}
+                className="text-cyan-900 hover:text-gray-200 bg-cyan-700 text-3xl font-bold flex items-center justify-center rounded-lg p-1 hover:bg-white/20 transition-all"
+              >
+                <X className="w-8 h-8" />
+              </button>
+            </div>
+
+            {/* Xarita Kontenti (IFRAME) */}
+            <div className="p-4 sm:p-6 h-[60vh]">
+              <div className="w-full h-full bg-gray-800 border-2 border-cyan-700 rounded-xl overflow-hidden">
+
+                {/* 👇👇👇 Sizning statik iframe joyingiz 👇👇👇 */}
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24022.71415937988!2d69.09755616200522!3d41.181672782838504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae630d53b3a16b%3A0xeaeb7e47756af5ef!2z0KPRgNGC0LDQsNGD0LssINCi0LDRiNC60LXQvdGC0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwsINCj0LfQsdC10LrQuNGB0YLQsNC9!5e0!3m2!1sru!2s!4v1765552415152!5m2!1sru!2s"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }} // React'da style prop'i object sifatida yoziladi
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Embedded Location Map" // Acessibility uchun muhim
+                ></iframe>
+                {/* 👆👆👆 Sizning statik iframe joyingiz 👆👆👆 */}
+
+              </div>
+            </div>
+
+            {/* Pastki Qism */}
+            <div className="p-4 sm:p-6 border-t border-gray-700">
+              <p className="text-cyan-400 font-medium text-center">
+                Iltimos, manzilni aniqlash uchun xaritani kattalashtiring yoki siljiting.
+              </p>
+              <button
+                onClick={() => setShowMapModal(false)}
+                className="w-full mt-4 bg-linear-to-r from-cyan-900 to-cyan-600 hover:from-cyan-500 hover:to-cyan-900 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg"
+              >
+                Yopish
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
     </div>
   );
 
