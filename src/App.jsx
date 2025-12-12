@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { User, Heart, Code, Briefcase, GraduationCap, Award, ChevronDown, ChevronUp, PanelTopIcon, Bold, MapPin, Mail, X, Download, Eye, ScanEye, Github, Gitlab, Linkedin, LinkedinIcon } from 'lucide-react';
+import { User, Heart, Code, Briefcase, GraduationCap, Award, ChevronDown, ChevronUp, PanelTopIcon, Bold, MapPin, Mail, X } from 'lucide-react';
 import { Image } from 'antd';
 import cert from './assets/cert.png';
 import certP from './assets/certP.png';
 import image from './assets/image.png';
-import resume from './assets/Said-resume.pdf';
+import FloatingActions from './components/FloatingActions';
+import MapModal from './components/MapModal';
+import SendEmailModal from './components/SendEmailModal';
+import Navigation from './components/Navigation';
+import MainContent from './components/MainContent';
 
-const BackendDevResume = () => {
+const App = () => {
   const [activeSection, setActiveSection] = useState('about');
   const [isVisible, setIsVisible] = useState(false);
   const [showAutobiography, setShowAutobiography] = useState(false);
   const [showMapModal, setShowMapModal] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
-  const [emailForm, setEmailForm] = useState({ name: '', email: '', subject: '', message: '' });
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const handleEmailSubmit = (e) => {
-    e.preventDefault();
-    // Email yuborish logikasi
-    console.log('Email sent:', emailForm);
-    alert('Xabaringiz yuborildi!');
-    setShowEmailModal(false);
-    setEmailForm({ name: '', email: '', subject: '', message: '' });
-  };
 
 
   const sections = {
@@ -326,294 +321,21 @@ const BackendDevResume = () => {
   return (
     <div className="h-screen overflow-hidden w-screen bg-linear-to-br from-gray-900 via-gray-800 to-black text-white">
 
-      {/* Floating Navigation - Desktop */}
-      <nav className="hidden md:flex fixed left-4 lg:left-8 top-1/2 -translate-y-1/2 z-50 flex-col space-y-3">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <div key={item.id} className="relative group">
-              <button
-                onClick={() => setActiveSection(item.id)}
-                className={`p-4 lg:p-4 rounded-xl transition-all duration-300 ${activeSection === item.id
-                  ? 'bg-linear-to-t from-cyan-800 to-blue-950 shadow-lg shadow-cyan-500/50'
-                  : 'bg-linear-to-b from-gray-500 to-red-50 hover:border-blue-800 border border-transparent hover:shadow-md hover:shadow-blue-500/30'
-                  }`}
-              >
-                <Icon className="w-5 h-6 lg:w-6 lg:h-6 hover:text-blue-800" />
-              </button>
-              {/* Tooltip */}
-              <div className="absolute left-full ml-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-                  {item.label}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </nav>
+      <Navigation navItems={navItems} setActiveSection={setActiveSection} activeSection={activeSection} />
 
-      {/* Mobile Navigation - Bottom */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-t border-cyan-900">
-        <div className="flex justify-around items-center px-2 py-3">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveSection(item.id)}
-                className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-300 ${activeSection === item.id
-                  ? 'text-cyan-400'
-                  : 'text-gray-400'
-                  }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span className="text-xs">{item.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* Main Content - Full Screen with Scroll */}
       <main className="h-full md:ml-20 lg:ml-28 overflow-y-auto pb-20 md:pb-0">
-        <div className="min-h-full flex flex-col justify-center mx-20 p-4 sm:p-6 md:p-8 lg:p-12">
-          <div className={`transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-              {sections[activeSection].title}
-            </h1>
-            <div className="w-16 sm:w-24 h-1 bg-linear-to-r from-cyan-500 to-blue-500 mb-6 sm:mb-8 rounded-full"></div>
-
-            <div className="max-w-6xl">
-              {sections[activeSection].content}
-            </div>
-          </div>
-        </div>
+        <MainContent section={sections[activeSection]} activeSection={activeSection} isVisible={isVisible} />
       </main>
+      
+      <FloatingActions />
 
+      <SendEmailModal show={showEmailModal} onClose={() => setShowEmailModal(!showEmailModal)} />
 
-      {/* Floating Action Buttons - Bottom Right */}
-      <div className='fixed bottom-15 right-15 z-50'>
-        {/* 1. GitHub Tugmachasi */}
-        <div
-          className='group bg-linear-to-tl mb-2 from-black-900 to-blue-500 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
-          onClick={() => window.open('https://github.com/SaidAbbos-05', '_blank')}
-        >
-          <Github className='w-6 h-6 ' />
-          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-               Github
-            </div>
-          </div>
-        </div>
-
-        {/* 2. Gitlab Tugmachasi */}
-        <div
-          className='group bg-linear-to-tl mb-2 from-red-900 to-red-50 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
-          onClick={() => window.open('https://gitlabdev.sud.uz/saidabbosxon', '_blank')}
-        >
-          <Gitlab className='w-6 h-6 ' />
-          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-               Gitlab
-            </div>
-          </div>
-        </div>
-
-        {/* 3. LinkedIn Tugmachasi */}
-        <div
-          onClick={() => window.open('https://www.linkedin.com/in/%D1%81%D0%B0%D0%B8%D0%B4%D0%B0%D0%B1%D0%B1%D0%BE%D1%81-undefined-067a5528b/', '_blank')}
-          className='group bg-linear-to-tl mb-2 bg-blue-400 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
-        >
-          <LinkedinIcon className='w-6 h-6' />
-          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-              Linkedln
-            </div>
-          </div>
-        </div>
-
-        {/* 4. Resume/SV Tugmachasi */}
-        <div
-          onClick={() => window.open(resume, '_blank')} // Aslida bu onclick tashqi divda edi, endi bitta tugmachaga o'tkazildi
-          className='group bg-linear-to-tl mb-2 from-cyan-900 to-blue-500 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg cursor-pointer flex items-center justify-center'
-        >
-          <Eye className='w-6 h-6 ' />
-          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-              See SV
-            </div>
-          </div>
-        </div>
-
-        {/* 5. Telegram Tugmachasi */}
-        <div
-          onClick={() => window.open("https://t.me/Saidabbos_Alisherov", '_blank')} // Aslida bu onclick tashqi divda edi, endi bitta tugmachaga o'tkazildi
-          className='group mb-2  rounded-full shadow-lg cursor-pointer flex items-center justify-center'
-        >
-          <img className='w-13 h-13' src="https://cdn-icons-png.flaticon.com/128/5968/5968804.png" alt="telegram" />
-          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-              Telegram
-            </div>
-          </div>
-        </div>
-
-        {/* 5. Telegram Tugmachasi */}
-        <div
-          onClick={() => window.open("https://www.instagram.com/said_abbos_/", '_blank')} // Aslida bu onclick tashqi divda edi, endi bitta tugmachaga o'tkazildi
-          className='group   rounded-full shadow-lg cursor-pointer flex items-center justify-center'
-        >
-          <img className='w-13.5 h-13.5' src="https://cdn-icons-png.flaticon.com/128/3955/3955024.png" alt="telegram" />
-          <div className="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <div className="bg-gray-800 text-cyan-400 px-4 py-2 rounded-lg border border-cyan-500 whitespace-nowrap shadow-lg">
-              Instagram
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-
-
-      {showEmailModal && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div className="bg-linear-to-r from-cyan-950 via-cyan-700 to-blue-200 p-6 flex justify-between items-center">
-              <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-                <Mail className="w-7 h-7" />
-                Xabar Yuborish
-              </h3>
-              <button
-                onClick={() => setShowEmailModal(false)}
-                className="text-cyan-900 hover:text-gray-200 bg-cyan-700 text-3xl font-bold  flex items-center justify-center rounded-lg hover:bg-white/20 transition-all"
-              >
-                <X className="w-8 h-8" />
-              </button>
-            </div>
-            <form onSubmit={handleEmailSubmit} className="p-6 space-y-4">
-              <div>
-                <label className="block text-cyan-400 font-semibold mb-2">Ismingiz</label>
-                <input
-                  type="text"
-                  required
-                  value={emailForm.name}
-                  onChange={(e) => setEmailForm({ ...emailForm, name: e.target.value })}
-                  className="w-full bg-gray-800 text-white border border-cyan-900 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-500 transition-all"
-                  placeholder="Ismingizni kiriting"
-                />
-              </div>
-              <div>
-                <label className="block text-cyan-400 font-semibold mb-2">Email</label>
-                <input
-                  type="email"
-                  required
-                  value={emailForm.email}
-                  onChange={(e) => setEmailForm({ ...emailForm, email: e.target.value })}
-                  className="w-full bg-gray-800 text-white border border-cyan-900 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-500 transition-all"
-                  placeholder="emailingiz@example.com"
-                />
-              </div>
-              <div>
-                <label className="block text-cyan-400 font-semibold mb-2">Mavzu</label>
-                <input
-                  type="text"
-                  required
-                  value={emailForm.subject}
-                  onChange={(e) => setEmailForm({ ...emailForm, subject: e.target.value })}
-                  className="w-full bg-gray-800 text-white border border-cyan-900 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-500 transition-all"
-                  placeholder="Xabar mavzusi"
-                />
-              </div>
-              <div>
-                <label className="block text-cyan-400 font-semibold mb-2">Xabar</label>
-                <textarea
-                  required
-                  value={emailForm.message}
-                  onChange={(e) => setEmailForm({ ...emailForm, message: e.target.value })}
-                  rows="6"
-                  className="w-full bg-gray-800 text-white border border-cyan-900 rounded-lg px-4 py-3 focus:outline-none focus:border-cyan-500 transition-all resize-none"
-                  placeholder="Xabaringizni yozing..."
-                ></textarea>
-              </div>
-              <div className="flex gap-4 pt-4">
-                <button
-                  type="submit"
-                  className="flex-1 bg-linear-to-r from-cyan-900 to-cyan-600 hover:from-cyan-500 hover:to-cyan-900 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg"
-                >
-                  Yuborish
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowEmailModal(false)}
-                  className="flex-1 bg-linear-to-r from-cyan-900 to-cyan-600 hover:from-cyan-500 hover:to-cyan-900 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
-                >
-                  Bekor qilish
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )
-      }
-
-      {showMapModal && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-gray-900 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl">
-            {/* Modal Sarlavhasi */}
-            <div className="bg-linear-to-r from-cyan-950 via-cyan-700 to-blue-200 p-6 flex justify-between items-center">
-              <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-                <MapPin className="w-7 h-7" />
-                Toshkent vil, Zangiota tum, Obod turmush MFY, T.Islomov ko'chasi 4-uy
-              </h3>
-              {/* Yopish Tugmachasi */}
-              <button
-                onClick={() => setShowMapModal(false)}
-                className="text-cyan-900 hover:text-gray-200 bg-cyan-700 text-3xl font-bold flex items-center justify-center rounded-lg p-1 hover:bg-white/20 transition-all"
-              >
-                <X className="w-8 h-8" />
-              </button>
-            </div>
-
-            {/* Xarita Kontenti (IFRAME) */}
-            <div className="p-4 sm:p-6 h-[60vh]">
-              <div className="w-full h-full bg-gray-800 border-2 border-cyan-700 rounded-xl overflow-hidden">
-
-                {/* 👇👇👇 Sizning statik iframe joyingiz 👇👇👇 */}
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24022.71415937988!2d69.09755616200522!3d41.181672782838504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae630d53b3a16b%3A0xeaeb7e47756af5ef!2z0KPRgNGC0LDQsNGD0LssINCi0LDRiNC60LXQvdGC0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwsINCj0LfQsdC10LrQuNGB0YLQsNC9!5e0!3m2!1sru!2s!4v1765552415152!5m2!1sru!2s"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }} // React'da style prop'i object sifatida yoziladi
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Embedded Location Map" // Acessibility uchun muhim
-                ></iframe>
-                {/* 👆👆👆 Sizning statik iframe joyingiz 👆👆👆 */}
-
-              </div>
-            </div>
-
-            {/* Pastki Qism */}
-            <div className="p-4 sm:p-6 border-t border-gray-700">
-              <p className="text-cyan-400 font-medium text-center">
-                Iltimos, manzilni aniqlash uchun xaritani kattalashtiring yoki siljiting.
-              </p>
-              <button
-                onClick={() => setShowMapModal(false)}
-                className="w-full mt-4 bg-linear-to-r from-cyan-900 to-cyan-600 hover:from-cyan-500 hover:to-cyan-900 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg"
-              >
-                Yopish
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
+      <MapModal show={showMapModal} onClose={() => setShowMapModal(!showMapModal)} />
 
     </div>
   );
 
 };
 
-export default BackendDevResume;
+export default App;
